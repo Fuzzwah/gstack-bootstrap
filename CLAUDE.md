@@ -81,12 +81,11 @@ gstack/
 ├── review/          # PR review skill
 ├── plan-ceo-review/ # /plan-ceo-review skill
 ├── plan-eng-review/ # /plan-eng-review skill
-├── autoplan/        # /autoplan skill (auto-review pipeline: CEO → design → eng)
 ├── benchmark/       # /benchmark skill (performance regression detection)
 ├── canary/          # /canary skill (post-deploy monitoring loop)
 ├── codex/           # /codex skill (multi-AI second opinion via OpenAI Codex CLI)
 ├── land-and-deploy/ # /land-and-deploy skill (merge → deploy → canary verify)
-├── office-hours/    # /office-hours skill (YC Office Hours — startup diagnostic + builder brainstorm)
+├── office-hours/    # /office-hours skill (Product Office Hours — product diagnostic + builder brainstorm)
 ├── investigate/     # /investigate skill (systematic root-cause debugging)
 ├── retro/           # Retrospective skill (includes /retro global cross-project mode)
 ├── bin/             # CLI utilities (gstack-repo-mode, gstack-slug, gstack-config, etc.)
@@ -236,10 +235,10 @@ CHANGELOG.md is **for users**, not contributors. Write it like product release n
 
 ## AI effort compression
 
-When estimating or discussing effort, always show both human-team and CC+gstack time:
+When estimating or discussing effort, always show both manual and CC+gstack time:
 
-| Task type | Human team | CC+gstack | Compression |
-|-----------|-----------|-----------|-------------|
+| Task type | Manual | CC+gstack | Compression |
+|-----------|--------|-----------|-------------|
 | Boilerplate / scaffolding | 2 days | 15 min | ~100x |
 | Test writing | 1 day | 15 min | ~50x |
 | Feature implementation | 1 week | 30 min | ~30x |
