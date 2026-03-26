@@ -1,15 +1,27 @@
-# gstack
+# gstack (solo dev fork)
+
+> **This is a fork of [garrytan/gstack](https://github.com/garrytan/gstack)** stripped down for bootstrapped solo developers. All YC branding, remote telemetry, and team-oriented features have been removed. What remains is a focused toolkit for a single builder who wants structured AI-assisted workflows without the startup culture overhead.
+
+**What changed from upstream:**
+- Removed all remote telemetry (Supabase sync, update checks that phone home). Local analytics stay.
+- Removed YC branding, application CTAs, and referral links from all skills.
+- Removed `/autoplan` (committee-style multi-reviewer pipeline — team-only).
+- Rebranded `/office-hours` from "YC Office Hours" to "Product Office Hours" — same diagnostic methodology, no pitch.
+- Reframed `/plan-eng-review` and `/retro` for solo dev context (projects, not teams).
+- Made `/gstack-upgrade` configurable to point at your own fork.
+
+Everything else works exactly like upstream. Same skills, same browser, same sprint process.
+
+---
 
 A single builder with the right tooling can move faster than a traditional team.
 
-**gstack** turns Claude Code into a virtual engineering team — a CEO who rethinks the product, an eng manager who locks architecture, a designer who catches AI slop, a reviewer who finds production bugs, a QA lead who opens a real browser, a security officer who runs OWASP + STRIDE audits, and a release engineer who ships the PR. Twenty specialists and eight power tools, all slash commands, all Markdown, all free, MIT license.
-
-Fork it. Improve it. Make it yours.
+**gstack** turns Claude Code into a virtual engineering team — a CEO who rethinks the product, an eng manager who locks architecture, a designer who catches AI slop, a reviewer who finds production bugs, a QA lead who opens a real browser, a security officer who runs OWASP + STRIDE audits, and a release engineer who ships the PR. All slash commands, all Markdown, all free, MIT license.
 
 **Who this is for:**
-- **Founders and CEOs** — especially technical ones who still want to ship
+- **Solo developers** — bootstrapped builders who want structured AI workflows
 - **First-time Claude Code users** — structured roles instead of a blank prompt
-- **Tech leads and staff engineers** — rigorous review, QA, and release automation on every PR
+- **Anyone shipping alone** — rigorous review, QA, and release automation on every PR
 
 ## Quick start
 
@@ -28,9 +40,9 @@ Fork it. Improve it. Make it yours.
 
 Open Claude Code and paste this. Claude does the rest.
 
-> Install gstack: run **`git clone https://github.com/anthropics/gstack.git ~/.claude/skills/gstack && cd ~/.claude/skills/gstack && ./setup`** then add a "gstack" section to CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, and lists the available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex, /cso, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade. Then ask the user if they also want to add gstack to the current project so teammates get it.
+> Install gstack: run **`git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/.claude/skills/gstack && cd ~/.claude/skills/gstack && ./setup`** then add a "gstack" section to CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, and lists the available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex, /cso, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade.
 
-### Step 2: Add to your repo so teammates get it (optional)
+### Step 2: Add to your repo (optional)
 
 > Add gstack to this project: run **`cp -Rf ~/.claude/skills/gstack .claude/skills/gstack && rm -rf .claude/skills/gstack/.git && cd .claude/skills/gstack && ./setup`** then add a "gstack" section to this project's CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, lists the available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex, /cso, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, and tells Claude that if gstack skills aren't working, run `cd .claude/skills/gstack && ./setup` to build the binary and register skills.
 
@@ -43,31 +55,23 @@ gstack works on any agent that supports the [SKILL.md standard](https://github.c
 Install to one repo:
 
 ```bash
-git clone https://github.com/anthropics/gstack.git .agents/skills/gstack
+git clone https://github.com/Fuzzwah/gstack-bootstrap.git .agents/skills/gstack
 cd .agents/skills/gstack && ./setup --host codex
 ```
-
-When setup runs from `.agents/skills/gstack`, it installs the generated Codex skills next to it in the same repo and does not write to `~/.codex/skills`.
 
 Install once for your user account:
 
 ```bash
-git clone https://github.com/anthropics/gstack.git ~/gstack
+git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/gstack
 cd ~/gstack && ./setup --host codex
 ```
-
-`setup --host codex` creates the runtime root at `~/.codex/skills/gstack` and
-links the generated Codex skills at the top level. This avoids duplicate skill
-discovery from the source repo checkout.
 
 Or let setup auto-detect which agents you have installed:
 
 ```bash
-git clone https://github.com/anthropics/gstack.git ~/gstack
+git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/gstack
 cd ~/gstack && ./setup --host auto
 ```
-
-For Codex-compatible hosts, setup now supports both repo-local installs from `.agents/skills/gstack` and user-global installs from `~/.codex/skills/gstack`. All 28 skills work across all supported agents. Hook-based safety skills (careful, freeze, guard) use inline safety advisory prose on non-Claude hosts.
 
 ## See it work
 
@@ -123,7 +127,7 @@ Each skill feeds into the next. `/office-hours` writes a design doc that `/plan-
 | Skill | Your specialist | What they do |
 |-------|----------------|--------------|
 | `/office-hours` | **Product Office Hours** | Start here. Six forcing questions that reframe your product before you write code. Pushes back on your framing, challenges premises, generates implementation alternatives. Design doc feeds into every downstream skill. |
-| `/plan-ceo-review` | **CEO / Founder** | Rethink the problem. Find the 10-star product hiding inside the request. Four modes: Expansion, Selective Expansion, Hold Scope, Reduction. |
+| `/plan-ceo-review` | **CEO** | Rethink the problem. Find the 10-star product hiding inside the request. Four modes: Expansion, Selective Expansion, Hold Scope, Reduction. |
 | `/plan-eng-review` | **Eng Manager** | Lock in architecture, data flow, diagrams, edge cases, and tests. Forces hidden assumptions into the open. |
 | `/plan-design-review` | **Senior Designer** | Rates each design dimension 0-10, explains what a 10 looks like, then edits the plan to get there. AI Slop detection. Interactive — one AskUserQuestion per design choice. |
 | `/design-consultation` | **Design Partner** | Build a complete design system from scratch. Researches the landscape, proposes creative risks, generates realistic product mockups. |
@@ -138,7 +142,7 @@ Each skill feeds into the next. `/office-hours` writes a design doc that `/plan-
 | `/canary` | **SRE** | Post-deploy monitoring loop. Watches for console errors, performance regressions, and page failures. |
 | `/benchmark` | **Performance Engineer** | Baseline page load times, Core Web Vitals, and resource sizes. Compare before/after on every PR. |
 | `/document-release` | **Technical Writer** | Update all project docs to match what you just shipped. Catches stale READMEs automatically. |
-| `/retro` | **Eng Manager** | Team-aware weekly retro. Per-person breakdowns, shipping streaks, test health trends, growth opportunities. `/retro global` runs across all your projects and AI tools (Claude Code, Codex, Gemini). |
+| `/retro` | **Eng Manager** | Solo dev weekly retro. Personal velocity, shipping streaks, test health trends, growth opportunities. `/retro global` runs across all your projects and AI tools (Claude Code, Codex, Gemini). |
 | `/browse` | **QA Engineer** | Real Chromium browser, real clicks, real screenshots. ~100ms per command. |
 | `/setup-browser-cookies` | **Session Manager** | Import cookies from your real browser (Chrome, Arc, Brave, Edge) into the headless session. Test authenticated pages. |
 
