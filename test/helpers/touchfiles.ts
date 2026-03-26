@@ -41,7 +41,6 @@ export const E2E_TOUCHFILES: Record<string, string[]> = {
   'skillmd-no-local-binary':  ['SKILL.md', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
   'skillmd-outside-git':      ['SKILL.md', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
 
-  'contributor-mode':           ['SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
   'session-awareness':        ['SKILL.md', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
 
   // QA (+ test-server dependency)
@@ -136,9 +135,6 @@ export const E2E_TOUCHFILES: Record<string, string[]> = {
   'benchmark-workflow':         ['benchmark/**', 'browse/src/**'],
   'setup-deploy-workflow':      ['setup-deploy/**', 'scripts/gen-skill-docs.ts'],
 
-  // Autoplan
-  'autoplan-core':  ['autoplan/**', 'plan-ceo-review/**', 'plan-eng-review/**', 'plan-design-review/**'],
-
   // Skill routing — journey-stage tests (depend on ALL skill descriptions)
   'journey-ideation':       ['*/SKILL.md.tmpl', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
   'journey-plan-eng':       ['*/SKILL.md.tmpl', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
@@ -166,7 +162,6 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'skillmd-setup-discovery': 'gate',
   'skillmd-no-local-binary': 'gate',
   'skillmd-outside-git': 'gate',
-  'contributor-mode': 'gate',
   'session-awareness': 'gate',
 
   // QA — gate for functional, periodic for quality/benchmarks
@@ -208,6 +203,9 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'ship-local-workflow': 'gate',
   'ship-coverage-audit': 'gate',
   'ship-triage': 'gate',
+  'ship-plan-completion': 'gate',
+  'ship-plan-verification': 'gate',
+  'review-plan-completion': 'gate',
 
   // Retro — gate for cheap branch detection, periodic for full Opus retro
   'retro': 'periodic',
@@ -250,9 +248,6 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'canary-workflow': 'gate',
   'benchmark-workflow': 'gate',
   'setup-deploy-workflow': 'gate',
-
-  // Autoplan — periodic (not yet implemented)
-  'autoplan-core': 'periodic',
 
   // Skill routing — periodic (LLM routing is non-deterministic)
   'journey-ideation': 'periodic',
