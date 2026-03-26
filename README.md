@@ -32,43 +32,82 @@ A single builder with the right tooling can move faster than a traditional team.
 5. Run `/qa` on your staging URL
 6. Stop there. You'll know if this is for you.
 
-## Install — 30 seconds
+## Install
 
 **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [Bun](https://bun.sh/) v1.0+, [Node.js](https://nodejs.org/) (Windows only)
 
-### Step 1: Install on your machine
+### Option A: Install globally (all projects)
 
-Open Claude Code and paste this. Claude does the rest.
+This installs gstack once on your machine. Every project you open in Claude Code gets the skills automatically.
 
-> Install gstack: run **`git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/.claude/skills/gstack && cd ~/.claude/skills/gstack && ./setup`** then add a "gstack" section to CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, and lists the available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex, /cso, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade.
+```bash
+# 1. Clone into Claude Code's global skills directory
+git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/.claude/skills/gstack
 
-### Step 2: Add to your repo (optional)
+# 2. Install dependencies and build the browse binary
+cd ~/.claude/skills/gstack && ./setup
+```
 
-> Add gstack to this project: run **`cp -Rf ~/.claude/skills/gstack .claude/skills/gstack && rm -rf .claude/skills/gstack/.git && cd .claude/skills/gstack && ./setup`** then add a "gstack" section to this project's CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, lists the available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review, /design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse, /qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex, /cso, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, and tells Claude that if gstack skills aren't working, run `cd .claude/skills/gstack && ./setup` to build the binary and register skills.
+That's it. Open any project in Claude Code and the skills are available immediately.
 
-Real files get committed to your repo (not a submodule), so `git clone` just works. Everything lives inside `.claude/`. Nothing touches your PATH or runs in the background.
+### Option B: Add to an existing project (recommended)
 
-### Codex, Gemini CLI, or Cursor
+This vendors gstack into your project so it's versioned with your code. Anyone who clones your repo gets the skills without a separate install step.
+
+```bash
+# 1. From your project root, copy gstack into .claude/skills/
+cp -Rf ~/.claude/skills/gstack .claude/skills/gstack
+rm -rf .claude/skills/gstack/.git
+
+# 2. Build the browse binary
+cd .claude/skills/gstack && ./setup
+
+# 3. Go back to your project root
+cd -
+```
+
+If you don't have a global install yet, clone directly into your project:
+
+```bash
+# 1. Clone into your project's .claude/skills/ directory
+git clone https://github.com/Fuzzwah/gstack-bootstrap.git .claude/skills/gstack
+
+# 2. Remove the .git directory so it's not a submodule
+rm -rf .claude/skills/gstack/.git
+
+# 3. Build
+cd .claude/skills/gstack && ./setup && cd -
+```
+
+**Then add a gstack section to your project's `CLAUDE.md`:**
+
+```markdown
+## gstack
+Use /browse from gstack for all web browsing. Never use mcp__claude-in-chrome__* tools.
+Available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review,
+/design-consultation, /review, /ship, /land-and-deploy, /canary, /benchmark, /browse,
+/qa, /qa-only, /design-review, /setup-browser-cookies, /setup-deploy, /retro,
+/investigate, /document-release, /codex, /cso, /careful, /freeze, /guard,
+/unfreeze, /gstack-upgrade.
+If gstack skills aren't working, run: cd .claude/skills/gstack && ./setup
+```
+
+Commit the `.claude/skills/gstack/` directory and the updated `CLAUDE.md`. Everything lives inside `.claude/`. Nothing touches your PATH or runs in the background.
+
+### Option C: Codex, Gemini CLI, or Cursor
 
 gstack works on any agent that supports the [SKILL.md standard](https://github.com/anthropics/claude-code). Skills live in `.agents/skills/` and are discovered automatically.
 
-Install to one repo:
-
 ```bash
+# Install to one repo
 git clone https://github.com/Fuzzwah/gstack-bootstrap.git .agents/skills/gstack
 cd .agents/skills/gstack && ./setup --host codex
-```
 
-Install once for your user account:
-
-```bash
+# Or install globally for your user account
 git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/gstack
 cd ~/gstack && ./setup --host codex
-```
 
-Or let setup auto-detect which agents you have installed:
-
-```bash
+# Or auto-detect which agents you have
 git clone https://github.com/Fuzzwah/gstack-bootstrap.git ~/gstack
 cd ~/gstack && ./setup --host auto
 ```
