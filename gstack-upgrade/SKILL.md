@@ -129,7 +129,8 @@ If `$STASH_OUTPUT` contains "Saved working directory", warn the user: "Note: loc
 ```bash
 PARENT=$(dirname "$INSTALL_DIR")
 TMP_DIR=$(mktemp -d)
-git clone --depth 1 https://github.com/garrytan/gstack.git "$TMP_DIR/gstack"
+GSTACK_REPO=$(~/.claude/skills/gstack/bin/gstack-config get upgrade_repo 2>/dev/null || echo "https://github.com/garrytan/gstack.git")
+git clone --depth 1 "$GSTACK_REPO" "$TMP_DIR/gstack"
 mv "$INSTALL_DIR" "$INSTALL_DIR.bak"
 mv "$TMP_DIR/gstack" "$INSTALL_DIR"
 cd "$INSTALL_DIR" && ./setup
@@ -205,14 +206,12 @@ After showing What's New, continue with whatever skill the user originally invok
 
 When invoked directly as `/gstack-upgrade` (not from a preamble):
 
-1. Force a fresh update check (bypass cache):
+1. Check the current version vs the remote version:
 ```bash
-~/.claude/skills/gstack/bin/gstack-update-check --force 2>/dev/null || \
-.claude/skills/gstack/bin/gstack-update-check --force 2>/dev/null || true
+LOCAL_VER=$(cat ~/.claude/skills/gstack/VERSION 2>/dev/null || echo "unknown")
+echo "Current version: $LOCAL_VER"
 ```
-Use the output to determine if an upgrade is available.
-
-2. If `UPGRADE_AVAILABLE <old> <new>`: follow Steps 2-6 above.
+The user can check their fork's latest version manually and follow Steps 2-6 above if an upgrade is needed.
 
 3. If no output (primary is up to date): check for a stale local vendored copy.
 
