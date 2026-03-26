@@ -218,9 +218,7 @@ Follow it inline, **skipping these sections** (already handled by the parent ski
 - AskUserQuestion Format
 - Completeness Principle — Boil the Lake
 - Search Before Building
-- Contributor Mode
 - Completion Status Protocol
-- Telemetry (run last)
 
 If the Read fails (file not found), say:
 "Could not load /${first} — proceeding with standard review."
