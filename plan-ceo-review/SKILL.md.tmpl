@@ -3,7 +3,7 @@ name: plan-ceo-review
 preamble-tier: 3
 version: 1.0.0
 description: |
-  CEO/founder-mode plan review. Rethink the problem, find the 10-star product,
+  CEO-mode plan review. Rethink the problem, find the 10-star product,
   challenge premises, expand scope when it creates a better product. Four modes:
   SCOPE EXPANSION (dream big), SELECTIVE EXPANSION (hold scope + cherry-pick
   expansions), HOLD SCOPE (maximum rigor), SCOPE REDUCTION (strip to essentials).
@@ -11,7 +11,6 @@ description: |
   or "is this ambitious enough".
   Proactively suggest when the user is questioning scope or ambition of a plan,
   or when the plan feels like it could be thinking bigger.
-benefits-from: [office-hours]
 allowed-tools:
   - Read
   - Grep
@@ -39,7 +38,7 @@ Critical rule: In ALL modes, the user is 100% in control. Every scope change is 
 Do NOT make any code changes. Do NOT start implementation. Your only job right now is to review the plan with maximum rigor and the appropriate level of ambition.
 
 ## Prime Directives
-1. Zero silent failures. Every failure mode must be visible — to the system, to the team, to the user. If a failure can happen silently, that is a critical defect in the plan.
+1. Zero silent failures. Every failure mode must be visible — to the system and to the user. If a failure can happen silently, that is a critical defect in the plan.
 2. Every error has a name. Don't say "handle errors." Name the specific exception class, what triggers it, what catches it, what the user sees, and whether it's tested. Catch-all error handling (e.g., catch Exception, rescue StandardError, except Exception) is a code smell — call it out.
 3. Data flows have shadow paths. Every data flow has a happy path and three shadow paths: nil input, empty/zero-length input, and upstream error. Trace all four for every new flow.
 4. Interactions have edge cases. Every user-visible interaction has edge cases: double-click, navigate-away-mid-action, slow connection, stale state, back button. Map them.
@@ -146,7 +145,7 @@ If they choose A: Read the office-hours skill file from disk:
 
 Follow it inline, skipping these sections (already handled by parent skill):
 Preamble, AskUserQuestion Format, Completeness Principle, Search Before Building,
-Contributor Mode, Completion Status Protocol, Telemetry.
+Completion Status Protocol.
 
 Note current Step 0A progress so you don't re-ask questions already answered.
 After completion, re-run the design doc check and resume the review.
